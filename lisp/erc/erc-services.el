@@ -107,7 +107,7 @@ You can also use \\[erc-nickserv-identify-mode] to change modes."
   ((erc-nickserv-identify-mode erc-nickserv-identify-mode))
   ((remove-hook 'erc-server-NOTICE-functions
 		'erc-nickserv-identify-autodetect)
-   (remove-hook 'erc-after-connect
+   (remove-hook 'erc-after-connect-functions
 		'erc-nickserv-identify-on-connect)
    (remove-hook 'erc-nick-changed-functions
 		'erc-nickserv-identify-on-nick-change)
@@ -133,11 +133,11 @@ You can also use \\[erc-nickserv-identify-mode] to change modes."
 		   'erc-nickserv-identify-autodetect)
 	 (remove-hook 'erc-nick-changed-functions
 		      'erc-nickserv-identify-on-nick-change)
-	 (remove-hook 'erc-after-connect
+	 (remove-hook 'erc-after-connect-functions
 		      'erc-nickserv-identify-on-connect))
 	((eq mode 'nick-change)
 	 (setq erc-nickserv-identify-mode 'nick-change)
-	 (add-hook 'erc-after-connect
+	 (add-hook 'erc-after-connect-functions
 		   'erc-nickserv-identify-on-connect)
 	 (add-hook 'erc-nick-changed-functions
 		   'erc-nickserv-identify-on-nick-change)
@@ -147,7 +147,7 @@ You can also use \\[erc-nickserv-identify-mode] to change modes."
 	 (setq erc-nickserv-identify-mode 'both)
 	 (add-hook 'erc-server-NOTICE-functions
 		   'erc-nickserv-identify-autodetect)
-	 (add-hook 'erc-after-connect
+	 (add-hook 'erc-after-connect-functions
 		   'erc-nickserv-identify-on-connect)
 	 (add-hook 'erc-nick-changed-functions
 		   'erc-nickserv-identify-on-nick-change))
@@ -155,7 +155,7 @@ You can also use \\[erc-nickserv-identify-mode] to change modes."
 	 (setq erc-nickserv-identify-mode nil)
 	 (remove-hook 'erc-server-NOTICE-functions
 		      'erc-nickserv-identify-autodetect)
-	 (remove-hook 'erc-after-connect
+	 (remove-hook 'erc-after-connect-functions
 		      'erc-nickserv-identify-on-connect)
 	 (remove-hook 'erc-nick-changed-functions
 		      'erc-nickserv-identify-on-nick-change)

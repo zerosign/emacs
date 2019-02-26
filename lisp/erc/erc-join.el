@@ -42,11 +42,11 @@
 ;;;###autoload(autoload 'erc-autojoin-mode "erc-join" nil t)
 (define-erc-module autojoin nil
   "Makes ERC autojoin on connects and reconnects."
-  ((add-hook 'erc-after-connect 'erc-autojoin-channels)
+  ((add-hook 'erc-after-connect-functions 'erc-autojoin-channels)
    (add-hook 'erc-nickserv-identified-hook 'erc-autojoin-after-ident)
    (add-hook 'erc-server-JOIN-functions 'erc-autojoin-add)
    (add-hook 'erc-server-PART-functions 'erc-autojoin-remove))
-  ((remove-hook 'erc-after-connect 'erc-autojoin-channels)
+  ((remove-hook 'erc-after-connect-functions 'erc-autojoin-channels)
    (remove-hook 'erc-nickserv-identified-hook 'erc-autojoin-after-ident)
    (remove-hook 'erc-server-JOIN-functions 'erc-autojoin-add)
    (remove-hook 'erc-server-PART-functions 'erc-autojoin-remove)))

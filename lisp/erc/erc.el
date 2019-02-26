@@ -1983,7 +1983,8 @@ Returns the buffer for the given server or channel."
         (old-buffer (current-buffer))
         old-point
         continued-session)
-    (when connect (run-hook-with-args 'erc-before-connect server port nick))
+    (when connect
+      (run-hook-with-args 'erc-before-connect-functions server port nick))
     (erc-update-modules)
     (set-buffer buffer)
     (setq old-point (point))
@@ -2118,7 +2119,10 @@ If no buffer matches, return nil."
           (erc-port-equal erc-session-port port)
           (erc-current-nick-p nick)))))
 
-(defcustom erc-before-connect nil
+(define-obsolete-variable-alias
+  'erc-before-connect 'erc-before-connect-functions "27.1")
+
+(defcustom erc-before-connect-functions nil
   "Hook called before connecting to a server.
 This hook gets executed before `erc' actually invokes `erc-mode'
 with your input data.  The functions in here get called with three
@@ -2126,7 +2130,10 @@ parameters, SERVER, PORT and NICK."
   :group 'erc-hooks
   :type 'hook)
 
-(defcustom erc-after-connect nil
+(define-obsolete-variable-alias
+  'erc-after-connect 'erc-after-connect-functions "27.1")
+
+(defcustom erc-after-connect-functions nil
   "Hook called after connecting to a server.
 This hook gets executed when an end of MOTD has been received.  All
 functions in here get called with the parameters SERVER and NICK."
@@ -4524,7 +4531,7 @@ See also: `erc-echo-notice-in-user-buffers',
 (defun erc-connection-established (proc parsed)
   "Run just after connection.
 
-Set user modes and run `erc-after-connect' hook."
+Set user modes and run `erc-after-connect-functions' hook."
   (with-current-buffer (process-buffer proc)
     (unless erc-server-connected ; only once per session
       (let ((server (or erc-server-announced-name
@@ -4536,7 +4543,7 @@ Set user modes and run `erc-after-connect' hook."
         (erc-update-mode-line)
         (erc-set-initial-user-mode nick buffer)
         (erc-server-setup-periodical-ping buffer)
-        (run-hook-with-args 'erc-after-connect server nick)))))
+        (run-hook-with-args 'erc-after-connect-functions server nick)))))
 
 (defun erc-set-initial-user-mode (nick buffer)
   "If `erc-user-mode' is non-nil for NICK, set the user modes.

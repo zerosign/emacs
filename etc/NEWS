@@ -682,6 +682,12 @@ This option controls whether and how to use Gnus search groups as
 *** 'erc-button-google-url' has been renamed 'erc-button-search-url'
 and its value has been changed to Duck Duck Go.
 
+---
+*** Abnormal hooks 'erc-before-connect' and 'erc-after-connect' have
+been renamed to 'erc-before-connect-functions' and
+'erc-after-connect-functions'.  The original names have been retained
+as obsolete aliases.
+
 ** EUDC
 
 *** XEmacs support has been removed.
