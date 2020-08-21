@@ -537,6 +537,9 @@ It is the default value of the variable `top-level'."
     (setq user-emacs-directory
 	  (startup--xdg-or-homedot startup--xdg-config-home-emacs nil))
 
+    (when (boundp 'comp-eln-load-path)
+      (setq comp-eln-load-path (cons (concat user-emacs-directory "eln-cache/")
+                                     comp-eln-load-path)))
     ;; Look in each dir in load-path for a subdirs.el file.  If we
     ;; find one, load it, which will add the appropriate subdirs of
     ;; that dir into load-path.  This needs to be done before setting
@@ -649,11 +652,12 @@ It is the default value of the variable `top-level'."
 	   ;; Use FOO/., so that if FOO is a symlink, file-attributes
 	   ;; describes the directory linked to, not FOO itself.
 	   (or (and default-directory
-		    (equal (file-attributes
-		       (concat (file-name-as-directory pwd) "."))
-		      (file-attributes
-		       (concat (file-name-as-directory default-directory)
-			       "."))))
+		    (ignore-errors
+		      (equal (file-attributes
+			      (concat (file-name-as-directory pwd) "."))
+			     (file-attributes
+			      (concat (file-name-as-directory default-directory)
+				      ".")))))
 	       (setq process-environment
 		     (delete (concat "PWD=" pwd)
 			     process-environment)))))

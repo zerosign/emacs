@@ -926,7 +926,10 @@ one or more of those symbols."
 	  (logior (if (memq 'executable predicate) 1 0)
 		  (if (memq 'writable predicate) 2 0)
 		  (if (memq 'readable predicate) 4 0))))
-  (locate-file-internal filename path suffixes predicate))
+  (let ((file (locate-file-internal filename path suffixes predicate)))
+    (if (and file (string-match "\\.eln\\'" file))
+        (gethash (file-name-nondirectory file) comp-eln-to-el-h)
+      file)))
 
 (defun locate-file-completion-table (dirs suffixes string pred action)
   "Do completion for file names passed to `locate-file'."
@@ -984,14 +987,6 @@ one or more of those symbols."
         (setq names (nconc names fullnames)))
       (completion-table-with-context
        string-dir names string-file pred action)))))
-
-(defun locate-file-completion (string path-and-suffixes action)
-  "Do completion for file names passed to `locate-file'.
-PATH-AND-SUFFIXES is a pair of lists, (DIRECTORIES . SUFFIXES)."
-  (declare (obsolete locate-file-completion-table "23.1"))
-  (locate-file-completion-table (car path-and-suffixes)
-                                (cdr path-and-suffixes)
-                                string nil action))
 
 (defvar locate-dominating-stop-dir-regexp
   (purecopy "\\`\\(?:[\\/][\\/][^\\/]+[\\/]\\|/\\(?:net\\|afs\\|\\.\\.\\.\\)/\\)\\'")
