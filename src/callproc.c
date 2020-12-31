@@ -1563,7 +1563,9 @@ emacs_spawn (pid_t *newpid, int std_in, int std_out, int std_err,
 
   vfork_error = pid < 0 ? errno : 0;
 
+#if USABLE_POSIX_SPAWN
  fork_done:
+#endif
   /* Stop blocking in the parent.  */
   unblock_child_signal (&oldset);
   unblock_input ();
