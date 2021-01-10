@@ -2232,6 +2232,13 @@ You can type 'C-x u u' instead of 'C-x u C-x u' to undo many changes,
 transient mode and then is executed normally.  'repeat-exit-key'
 defines an additional key to exit mode like 'isearch-exit' ('RET').
 
+** So Long
+
+---
+*** 'so-long-threshold' and 'so-long-max-lines' have been raised to
+10000 characters and 500 lines respectively, to reduce the likelihood
+of false-positives when 'global-so-long-mode' is enabled.
+
 
 * New Modes and Packages in Emacs 28.1
 
