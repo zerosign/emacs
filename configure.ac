@@ -2290,6 +2290,8 @@ fi
 
 GMALLOC_OBJ=
 HYBRID_MALLOC=
+MIMALLOC_OBJ=
+
 if test "${system_malloc}" = "yes"; then
   AC_DEFINE([SYSTEM_MALLOC], 1,
     [Define to 1 to use the system memory allocator, even if it is not
@@ -2298,6 +2300,7 @@ if test "${system_malloc}" = "yes"; then
   GNU_MALLOC_reason="
     (The GNU allocators don't work with this system configuration.)"
   VMLIMIT_OBJ=
+  MIMALLOC_OBJ=/usr/lib/mimalloc-2.0/mimalloc.o
 elif test "$hybrid_malloc" = yes; then
   AC_DEFINE(HYBRID_MALLOC, 1,
     [Define to use gmalloc before dumping and the system malloc after.])

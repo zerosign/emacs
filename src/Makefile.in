@@ -426,6 +426,9 @@ SOME_MACHINE_OBJECTS = dosfns.o msdos.o \
 ## gmalloc.o if !SYSTEM_MALLOC && !DOUG_LEA_MALLOC, else empty.
 GMALLOC_OBJ=@GMALLOC_OBJ@
 
+## mimalloc.o overriding system_malloc
+MIMALLOC_OBJ=@MIMALLOC_OBJ@
+
 ## vm-limit.o if !SYSTEM_MALLOC, else empty.
 VMLIMIT_OBJ=@VMLIMIT_OBJ@
 
@@ -438,7 +441,7 @@ PRE_ALLOC_OBJ=@PRE_ALLOC_OBJ@
 POST_ALLOC_OBJ=@POST_ALLOC_OBJ@
 
 ## List of object files that make-docfile should not be told about.
-otherobj= $(TERMCAP_OBJ) $(PRE_ALLOC_OBJ) $(GMALLOC_OBJ) $(RALLOC_OBJ) \
+otherobj= $(MIMALLOC_OBJ) $(TERMCAP_OBJ) $(PRE_ALLOC_OBJ) $(GMALLOC_OBJ) $(RALLOC_OBJ) \
   $(POST_ALLOC_OBJ) $(WIDGET_OBJ) $(LIBOBJS)
 
 ## All object files linked into temacs.  $(VMLIMIT_OBJ) should be first.
